@@ -4,6 +4,7 @@
      <el-table :data="items">
         <el-table-column prop="_id" label="ID" width="240"></el-table-column>
         <el-table-column prop="name" label="英雄名称"></el-table-column>   
+        <el-table-column prop="title" label="英雄称号"></el-table-column>   
         <el-table-column prop="avatar" label="头像">
           <!--自定义显示内容-->
           <template slot-scope="scope">
@@ -32,7 +33,7 @@
         this.items = result.data;
       },
       async remove(row){
-         this.$confirm(`是否确定要删除英雄"${row.name}"`, '提示', {
+         this.$confirm(`是否确定要删除英雄"${row.name}"？`, '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
