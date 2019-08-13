@@ -2,6 +2,11 @@ const express = require('express')
 
 const app = express()
 
+/**
+ * 该变量最合理的方式是在环境变量里面去配置
+ **/
+app.set('secret','i2u2m3l6n2b9d0l3b5')
+
 app.use(require('cors')())
 app.use(express.json())
 
