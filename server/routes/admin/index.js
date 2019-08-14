@@ -30,66 +30,45 @@ module.exports = app => {
    })
 
     //获取数据列表
-    router.get('/',async(req,res,next) =>{
-        //中间件：注意要加一个next参数，然后在函数里面调用
-        /**
-         * http-assert包：用于测试的时候，判断确保东西是否存在或者条件是否正确
-         */
-        /**
-         * 验证用户是否登陆
-         * 获取用户信息,这个用户信息一般情况下，习惯性的在请求头里面去传
-         * pop():表示提取最后一个元素
-         * 1.获取token（userId），并解密
-         **/
-        const token =String(req.headers.authorization || '').split(' ').pop();// 获取token
-        assert(token,401,'请先登陆')//请提供jwt token
-        // console.log(req.headers.authorization)
-        //解密：verify()会进行验证
-        const { id } = jwt.verify(token,app.get('secret'))//返回的是一个对象
-        assert(id,401,'请先登陆')//无效的jwt token
-        //2.根据用户id去查找用户,挂在req上表示在后续可以调用user
-        req.user = await AdminUser.findById(id)
-        assert(req.user,401,'请先登陆')
-        await next()//表示中间执行完之后，会调用下一个处理函数
-   },async(req,res) =>{
+    router.get('/',async(req,res) =>{
       const queryOption = {}//需要关联的信息
       if(req.Model.modelName === "Category"){//需要查parent信息的模型
          queryOption.populate = 'parent'
       }
       const items = await req.Model.find().setOptions(queryOption).limit(10);//populate():表示取出关联的信息
       res.send(items);
-   })
-   //根据id获取数据
-   router.get('/:id',async(req,res) =>{
-       const model = await req.Model.findById(req.params.id)
-       res.send(model)
-   })
+    })
+    //根据id获取数据
+    router.get('/:id',async(req,res) =>{
+        const model = await req.Model.findById(req.params.id)
+        res.send(model)
+    })
 
-   //表示通用接口
-   app.use('/admin/api/rest/:resource',async(req,res,next) => {
-      //因为以下部分为每个接口都需要调用，所以写成中间件，也就是在router加一个前置的处理函数
-      const modelName = require('inflection').classify(req.params.resource);//转换模型名称
-      //引入模型
-      req.Model = require(`../../modules/${modelName}`);
-      //表示执行下一个函数，在写中间件需要定义这个参数，来控制执行下一个函数
-      next();
-   },router);
+     
+    //登陆授权中间件
+    const authMiddleware = require('../../middleware/auth')
 
+    /** 
+     *资源中间件（获取模型）
+     *inflection包：大小写，单复数，或者下划线等一些单词的格式转换
+    */
+    const resourceMiddleware = require('../../middleware/resource')
+    /**
+     * 通用接口
+     *有两个中间件：一个是登陆授权的，一个是获取模型类名
+     * */
+    app.use('/admin/api/rest/:resource',authMiddleware(),resourceMiddleware(),router);
 
-   /** 
-    * inflection包：大小写，单复数，或者下划线等一些单词的格式转换
-   */
+  
 
     /** 
      * 因为上传文件，使用的不是router，所以需要另外声明一个接口
-     * 
      * req因为获取不到上传文件的数据，所以需要一个中间件：multer
-     * */
-     
+     */
     const multer = require('multer')
     //__dirname 表示绝对地址
     const upload = multer({dest:__dirname +'/../../uploads'}) //传一个目标地址的参数：dest
-    app.post('/admin/api/upload',upload.single('file'),async(req,res) => {
+    app.post('/admin/api/upload',authMiddleware(),upload.single('file'),async(req,res) => {
         const file = req.file;
         file.url = `http://localhost:3000/uploads/${file.filename}`
         res.send(file)
