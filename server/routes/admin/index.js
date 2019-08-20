@@ -35,7 +35,7 @@ module.exports = app => {
       if(req.Model.modelName === "Category"){//需要查parent信息的模型
          queryOption.populate = 'parent'
       }
-      const items = await req.Model.find().setOptions(queryOption).limit(10);//populate():表示取出关联的信息
+      const items = await req.Model.find().setOptions(queryOption).limit(100);//populate():表示取出关联的信息
       res.send(items);
     })
     //根据id获取数据

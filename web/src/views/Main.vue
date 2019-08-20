@@ -29,6 +29,12 @@ export default {
   
 }
 </script>
-<style>
+<style lang="scss">
+.topbar {
+   position: sticky;//最新的部分浏览器支持
+   top:0;
+   z-index: 999;
+}
+
 
 </style>

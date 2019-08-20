@@ -59,7 +59,8 @@
     </el-header>
     
     <el-main>
-    <router-view></router-view>
+      <!--因为新增和编辑共用页面，所以需要声明key来区分-->
+       <router-view :key="$route.path"></router-view>
     </el-main>
   </el-container>
 </el-container>
