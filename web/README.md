@@ -39,5 +39,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 - 第三步：通用的flex布局定义
 - 第四步：常用的边距定义（margin，padding）
 
+###卡片（封装-组件）--基础版
+- 不共用部分：组件里面使用‘<slot></slot>’来指示添加的内容存放在组件的位置
 
-
+###列表卡片--升级版
+- 了解‘</slot>’的使用方式，v2.6语法

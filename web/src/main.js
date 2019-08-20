@@ -3,8 +3,21 @@ import App from './App.vue'
 
 Vue.config.productionTip = false
 
-import './style.scss'
+import './assets/iconfont/iconfont.css' //引用字体图标
+import './assets/scss/style.scss'
 import router from './router'
+
+
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+import 'swiper/dist/css/swiper.css'
+Vue.use(VueAwesomeSwiper, /* { default global options } */)
+
+
+import Card from './components/Card.vue'
+Vue.component("m-card",Card)
+
+import ListCard from './components/ListCard.vue'
+Vue.component("m-list-card",ListCard)
 
 new Vue({
   router,

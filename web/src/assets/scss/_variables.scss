@@ -1,0 +1,79 @@
+
+//colors
+/*
+1.可以从亮到暗来排列颜色
+*/
+$colors : (
+  
+    //主色调
+    "primary" : #db9e3f,
+    "info":#4b67af,
+    //因为"white" 与颜色值相同。所以需要引号
+    "white" :#fff,
+    "light" :#f9f9f9,
+    "light-1":#d4d9d2,
+    "grey" : #999,
+    "grey-1": #666,
+    "dark-1" : #343440,
+    "dark" : #222,
+    "black" : #000,
+);
+
+$border-color:map-get($colors, 'light-1' );
+
+//font-size
+$base-font-size:1rem;//表示13px
+$font-sizes:(
+    xxs: 0.6154, //8px
+    xs: 0.7692, //10px
+    sm: 0.9231, //12px
+    md: 1, //13px
+    lg: 1.0769, //14px
+    xl: 1.2,//16px
+);
+
+
+$flex-jc: ( //主轴和交叉轴的对其方式
+    start: start,
+    end: end,
+    center:center,
+    between:space-between,
+    around: space-around, 
+);
+
+$flex-ai: ( ////主轴和交叉轴的对其方式
+    start: start,
+    end: end,
+    center:center,
+    stretch: stretch,//等高
+);
+
+
+/*
+1.边距的定义参考bootstrap
+2.边距分为 margin 和 padding ，方向：上，下，左，右
+*/
+//spacing
+//0-5：0..
+//.mt-1 => margin-top level1
+$spacing-types: ( //类型
+    m: margin,
+    p: padding
+);
+
+$spacing-directions: ( //方向
+    t: top,
+    r: right,
+    b: bottom,
+    l: left
+);
+
+$spacing-base-size: 1rem;
+$spacing-sizes: ( //大小
+    0: 0,
+    1: 0.25,
+    2: 0.5,
+    3: 1,
+    4: 1.5,
+    5: 3
+);
