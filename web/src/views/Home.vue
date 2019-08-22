@@ -33,20 +33,38 @@
    
      <m-list-card title="新闻资讯" icon="cc-menu-circle" :categories="newCats">
        <template #items="{category}">
-          <div class="py-2" v-for="(news,i) in category.newsList" :key="i">
-            <span>{{news.categoryName}}</span>
-            <span>|</span>
-            <span>{{news.title}}</span>
-            <span>{{news.date}}</span>
+          <div class="py-2 fs-lg d-flex" v-for="(news,i) in category.newsList" :key="i">
+            <span class="text-info">{{news.categoryName}}</span>
+            <span class="px-2">|</span>
+            <span class="flex-1 text-dark-1 text-ellipsis pr-2">{{news.title}}</span>
+            <span class="text-grey fs-sm">{{news.createdAt | date}}</span>
           </div>
        </template>
-      
+     </m-list-card>
+
+     <m-list-card title="英雄列表" icon="heroku" :categories="heroCats">
+       <template #items="{category}">
+          <div class="d-flex flex-wrap" style="margin:0 -0.5rem">
+            <div class="p-2 text-center" style="width:20%;" v-for="(hero,i) in category.heroList" :key="i">
+              <img :src="hero.avatar" alt=""  class="w-100"/>
+              <div>{{hero.name}}</div>
+            </div>
+          </div>
+       </template>
      </m-list-card>
   </div>
 
 </template>
 <script>
+import dayjs from "dayjs"
 export default {
+   
+   //过滤器
+   filters:{
+     date(val){
+       return dayjs(val).format('MM/DD')
+     }
+   },
    data (){
      return {
         swiperOption: {
@@ -54,56 +72,26 @@ export default {
             el: '.pagination-home'
           }
         },
-        newCats:[
-          {
-            name:'热门',
-            newsList:new Array(5).fill({}).map(v => ({
-                //表示把该对象重复5遍，fill:填充
-                categoryName:'热门',
-                title:'审判系统信誉经验恢复速率调整公告',
-                date:'06/10'
-            }))
-          },
-          {
-            name:'新闻',
-            newsList:new Array(5).fill({}).map(v => ({
-                //表示把该对象重复5遍，fill:填充
-                categoryName:'新闻',
-                title:'审判系统信誉经验恢复速率调整公告',
-                date:'06/10'
-            }))
-          },
-          {
-            name:'公告',
-            newsList:new Array(5).fill({}).map(v => ({
-                //表示把该对象重复5遍，fill:填充
-                categoryName:'公告',
-                title:'审判系统信誉经验恢复速率调整公告',
-                date:'06/10'
-            }))
-          },
-          {
-            name:'活动',
-            newsList:new Array(5).fill({}).map(v => ({
-                //表示把该对象重复5遍，fill:填充
-                categoryName:'活动',
-                title:'审判系统信誉经验恢复速率调整公告',
-                date:'06/10'
-            }))
-          },
-          {
-            name:'赛事',
-            newsList:new Array(5).fill({}).map(v => ({
-                //表示把该对象重复5遍，fill:填充
-                categoryName:'赛事',
-                title:'审判系统信誉经验恢复速率调整公告',
-                date:'06/10'
-            }))
-          },
-
-        ]
+        newCats:[],
+        heroCats:[]
      }
+   },
+   methods:{
+     async fetchNewsCats(){
+       const res = await this.$http.get('news/list')
+       this.newCats = res.data
+     },
+     async fetchHeroCats(){
+       const res = await this.$http.get('heroes/list')
+       this.heroCats = res.data
+     }
+   },
+   created(){
+     //进来页面之后做什么事
+     this.fetchNewsCats();
+     this.fetchHeroCats();
    }
+
 }
 </script>
 <style lang="scss">

@@ -66,6 +66,15 @@ a {
     }
 }
 
+
+//text overflow
+.text-ellipsis{
+    display:inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; 
+}
+
 //width,height
 .w-100{
     width: 100%;

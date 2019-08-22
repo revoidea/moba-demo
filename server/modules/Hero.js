@@ -50,4 +50,7 @@ const schema  = new mongoose.Schema({
      * 的命名方式
      */
 })
-module.exports = mongoose.model('Hero',schema)
+
+
+//第一个参数是模型名称，第二个参数是表结构，第三个参数是表名(集合名)，可不传，默认是模型名称小写+s，如 articles
+module.exports = mongoose.model('Hero',schema,'heroes')
