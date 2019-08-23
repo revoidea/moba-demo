@@ -31,6 +31,10 @@ a {
     color: #999999;
 }
 
+p {
+  line-height: 1.5em;
+} 
+
 /*
 1.在sass里，数组有两种形式：list 和 map 
 2.以下为助手工具类
@@ -166,7 +170,22 @@ a {
         border: none;
         border-radius: 0.1538rem;//2px
         font-size: map-get($font-sizes, 'sm') * $base-font-size;//表示从已有变量中取
-        padding: 0.2rem 0.5rem;
+        padding: 0.2rem 0.6rem;
+        &.btn-lg {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            i {
+                color: map-get($colors, 'primary');
+                font-weight: bold;
+                font-size: 1.5rem;
+                margin-right: 0.5rem;
+            }
+            background: map-get($colors,'white-1');
+            border:1px solid map-get($colors,'white-2');
+            padding: 0.8rem 1rem;
+            font-size: 1rem;
+        }
     }
 
     //nav
@@ -211,4 +230,12 @@ a {
         background-position: 38.577% 52.076%;
     }
 
+}
+
+
+//borders
+@each $dir in (top,right,bottom,left) {
+    .border-#{$dir} {
+        border-#{$dir} :1px solid $border-color
+    }
 }

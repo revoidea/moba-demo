@@ -7,6 +7,7 @@ const schema  = new mongoose.Schema({
     name:{type:String},//名称
     avatar:{type:String},//头像
     title:{type:String},//称号
+    banner:{type:String},//背景图
     //一个分类时
    // category:{type:mongoose.SchemaTypes.ObjectId,ref:'Category'},//关联--类型
 
@@ -22,6 +23,8 @@ const schema  = new mongoose.Schema({
     skills:[{
         icon:{type:String},//图标
         name:{type:String},//名称
+        delay:{type:String},//冷却值
+        cost:{type:String},//消耗
         description:{type:String},//介绍
         tips:{type:String}//小提示
     }],//技能
