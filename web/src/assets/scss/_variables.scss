@@ -39,16 +39,16 @@ $font-sizes:(
 
 
 $flex-jc: ( //主轴和交叉轴的对其方式
-    start: start,
-    end: end,
+    start: flex-start,
+    end: flex-end,
     center:center,
     between:space-between,
     around: space-around, 
 );
 
 $flex-ai: ( ////主轴和交叉轴的对其方式
-    start: start,
-    end: end,
+    start: flex-start,
+    end: flex-end,
     center:center,
     stretch: stretch,//等高
 );

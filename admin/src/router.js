@@ -20,12 +20,17 @@ import AdList from './views/AdList.vue'
 import AdminUserEdit from './views/AdminUserEdit.vue'
 import AdminUserList from './views/AdminUserList.vue'
 
+
+import Demo from './views/Demo.vue'
+
+
 Vue.use(Router)
 
 //导航守卫（vue router 官方文档）
 const router = new Router({
   routes: [
     {path:'/login',name:'login',component:Login,meta:{isPublic:true} },//isPublic:路由限制
+    {path:'/demo',name:'demo',component:Demo },//isPublic:路由限制
     {
       path: '/',
       name: 'main',

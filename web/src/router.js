@@ -5,6 +5,8 @@ import Home from './views/Home.vue'
 import Article from './views/Article.vue'
 import Hero from './views/Hero.vue'
 
+import Demo from './views/Demo.vue'
+
 Vue.use(Router)
 
 export default new Router({
@@ -32,6 +34,11 @@ export default new Router({
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+    },
+    {
+      path :'/demo',
+      name: 'demo',
+      component:Demo
     }
   ]
 })

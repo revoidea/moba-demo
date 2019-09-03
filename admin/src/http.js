@@ -3,7 +3,12 @@ import Vue from 'vue'
 import router from './router'
  
 const http = axios.create({
-    baseURL :'http://localhost:3000/admin/api'
+   
+  //生产时必须这样写 process.env.VUE_APP + ...(自己的接口)
+  baseURL:process.env.VUE_APP_API_URL || '/admin/api'
+
+  //开发时可用
+  // baseURL :'http://localhost:3000/admin/api'
 })
 
 /**
